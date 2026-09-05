@@ -23,6 +23,7 @@ when the site goes live.
 | `docs/WEBSITE-BRIEF.md` | The brief. Its Visual Direction section controls every design decision. |
 | `docs/PHOTO-CHECKLIST.md` | Every photograph the site needs, by priority, with shot direction. |
 | `docs/PARKED-pool-service.md` | Everything needed to put pool service back, if it comes back. |
+| `brand/` | The logo. Open `brand/logo-sheet.html` for every version and the usage rules. |
 
 ## Reviewing it
 
@@ -49,15 +50,25 @@ send the source photos bright and untreated. See `assets/README.md`.
 - Real Google reviews. The reviews section is a layout only.
 - The estimate form has no destination. Wire it to email plus a CRM, and add spam protection.
 - Mail on the domain, so `info@specialgreenbr.com` works
-- **The logo descriptor reads "Pools" and the site does not sell pool service.** Either a
-  pool-free logo variant, or pool service comes back.
 - Remove `noindex` from `index.html` and open up `robots.txt`
 
 ## Hosting
 
 GitHub Pages serves the staging preview from `main` via `.github/workflows/pages.yml`.
 
-For production, point specialgreenbr.com at Vercel or Cloudflare Pages rather than the GoDaddy
-website builder. Move DNS to Cloudflare, keep the registration at GoDaddy, deploy from this
-repository. Both are free at this traffic level and both are faster than anything GoDaddy will
-serve.
+For production, point specialgreenbr.com at **Cloudflare Pages**, not the GoDaddy website
+builder. Move DNS to Cloudflare, keep the registration at GoDaddy, and deploy from this
+repository.
+
+Cloudflare Pages is free for commercial use, with unlimited bandwidth and 500 builds a month.
+A static marketing site will never come close to those limits.
+
+Do not use Vercel's free Hobby plan for this. It is non-commercial only, and Vercel reads
+commercial broadly enough to cover a site built by a paid freelancer. Commercial use there is
+$20 a month per seat. Netlify's free tier and GitHub Pages both allow commercial use if
+Cloudflare ever falls through.
+
+**Before switching nameservers:** moving DNS to Cloudflare means GoDaddy stops serving your
+records. If mail is set up on the domain first, the MX records have to be recreated in
+Cloudflare or mail stops. Do the DNS move before setting up email, or copy the MX records
+across carefully.

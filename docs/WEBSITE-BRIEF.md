@@ -14,16 +14,15 @@ Domain: **specialgreenbr.com** (registered at GoDaddy). Hosting and DNS plan is 
 | Email | specialgreenllc@gmail.com, moving to info@specialgreenbr.com |
 | Service area | Baton Rouge, LA and surrounding areas |
 | Facebook | https://www.facebook.com/SpecialGreen2022/ |
-| Logo descriptor | Lawns · Landscaping · Irrigation · Pools |
+| Logo descriptor | Lawns · Landscaping · Irrigation |
 | Tagline | Outdoor Spaces. Higher Standards. |
 | Sign-off | Outdoor Spaces. A Brighter Tomorrow. |
 | Crew shirts | Orange, reading SPECIAL GREEN LLC / OUTDOOR LIVING DONE RIGHT. |
 
-> **The logo says POOLS and the site does not.** The logo lockup in every client mockup
-> reads "Lawns · Landscaping · Irrigation · Pools", and the crew shirts carry the hero
-> headline. With pool service parked, the site renders the descriptor without POOLS. If the
-> real logo file is used as-is, the header will advertise a service the site does not sell.
-> Either a pool-free version of the logo is needed, or pool service comes back.
+> **Resolved: the logo no longer says Pools.** The old lockup read "Lawns · Landscaping ·
+> Irrigation · Pools", which would have advertised a service the site does not sell. The new
+> logo in `brand/` reads "Lawns · Landscaping · Irrigation". If pool service comes back, the
+> service line goes back with it. See `brand/logo-sheet.html`.
 
 The controlling section of this brief is **Visual Direction**. Every design decision,
 every page, and every asset selection is judged against it.
