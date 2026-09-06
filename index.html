@@ -128,9 +128,10 @@ section{position:relative;scroll-margin-top:84px}
    Cinematic placeholder treatment: dark base, warm directional light,
    contrast, vignette, grain. Replace background-image with the real
    Special Green photograph named in data-shot. ------------------------ */
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
 .shot{
   position:relative;overflow:hidden;isolation:isolate;background-color:#0A130C;
-  background-image:var(--img,none),
+  background-image:
     radial-gradient(120% 90% at 78% 8%, rgba(242,107,33,.30), transparent 58%),
     radial-gradient(90% 70% at 12% 92%, rgba(111,191,63,.16), transparent 60%),
     linear-gradient(168deg,#16281a 0%,#0C170F 46%,#050806 100%);
@@ -142,11 +143,11 @@ section{position:relative;scroll-margin-top:84px}
     radial-gradient(100% 100% at 50% 40%, transparent 40%, rgba(0,0,0,.62) 100%),
     repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);
 }
-.shot.v2{background-image:var(--img,none),radial-gradient(110% 80% at 20% 12%,rgba(242,107,33,.22),transparent 55%),linear-gradient(200deg,#1B2E1C 0%,#0A130C 52%,#040705 100%)}
-.shot.v3{background-image:var(--img,none),radial-gradient(120% 100% at 50% 100%,rgba(255,140,60,.34),transparent 60%),linear-gradient(180deg,#0A1410 0%,#132018 55%,#050906 100%)}
-.shot.v4{background-image:var(--img,none),radial-gradient(90% 90% at 85% 85%,rgba(111,191,63,.20),transparent 58%),linear-gradient(150deg,#101C14 0%,#080F0A 60%,#030604 100%)}
-.shot.v5{background-image:var(--img,none),radial-gradient(120% 90% at 30% 20%,rgba(242,107,33,.40),transparent 52%),linear-gradient(200deg,#20130B 0%,#0D1410 55%,#040705 100%)}
-.shot.v6{background-image:var(--img,none),radial-gradient(100% 80% at 60% 0%,rgba(199,209,196,.16),transparent 55%),linear-gradient(190deg,#131E16 0%,#0A110C 60%,#040604 100%)}
+.shot.v2{background-image:radial-gradient(110% 80% at 20% 12%,rgba(242,107,33,.22),transparent 55%),linear-gradient(200deg,#1B2E1C 0%,#0A130C 52%,#040705 100%)}
+.shot.v3{background-image:radial-gradient(120% 100% at 50% 100%,rgba(255,140,60,.34),transparent 60%),linear-gradient(180deg,#0A1410 0%,#132018 55%,#050906 100%)}
+.shot.v4{background-image:radial-gradient(90% 90% at 85% 85%,rgba(111,191,63,.20),transparent 58%),linear-gradient(150deg,#101C14 0%,#080F0A 60%,#030604 100%)}
+.shot.v5{background-image:radial-gradient(120% 90% at 30% 20%,rgba(242,107,33,.40),transparent 52%),linear-gradient(200deg,#20130B 0%,#0D1410 55%,#040705 100%)}
+.shot.v6{background-image:radial-gradient(100% 80% at 60% 0%,rgba(199,209,196,.16),transparent 55%),linear-gradient(190deg,#131E16 0%,#0A110C 60%,#040604 100%)}
 
 /* slot label, toggled */
 .shot[data-shot]::marker{content:none}
@@ -310,6 +311,51 @@ body.slots .slot-tag{display:block}
 @media (max-width:1000px){.svc-grid{grid-template-columns:repeat(2,1fr)}.card:last-child{grid-column:1/-1;min-height:360px}}
 @media (max-width:660px){.svc-grid{grid-template-columns:1fr}.card:last-child{grid-column:auto}.card{min-height:340px}}
 
+/* ---------- SERVICE DETAIL STRIP ---------- */
+.detail{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair-dark);margin-top:1px}
+.detail figure{position:relative;margin:0;aspect-ratio:1/1;overflow:hidden;background:#0A130C}
+.detail img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.detail figure:hover img{transform:scale(1.05)}
+.detail figcaption{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:16px 18px;
+  background:linear-gradient(180deg,transparent,rgba(4,8,5,.92));
+  font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--white)}
+@media (max-width:820px){.detail{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- BEFORE AND AFTER ---------- */
+.ba-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.6vw,34px)}
+.ba{margin:0}
+.ba .pair{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--hair-dark)}
+.ba .half{position:relative;aspect-ratio:1/1;overflow:hidden;background:#0A130C}
+.ba .half img{width:100%;height:100%;object-fit:cover;display:block}
+.ba .half span{position:absolute;z-index:2;top:0;left:0;padding:7px 11px;font-size:9.5px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--white);background:rgba(6,10,7,.82)}
+.ba .half.is-after span{background:var(--orange)}
+.ba figcaption{margin-top:16px}
+.ba figcaption b{display:block;font-family:var(--head);font-size:20px;text-transform:uppercase;line-height:1.1}
+.ba figcaption em{display:block;font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:7px}
+@media (max-width:900px){.ba-grid{grid-template-columns:1fr}}
+
+/* ---------- CUSTOMER BAND ---------- */
+.customer{position:relative;overflow:hidden;min-height:min(62vh,560px);display:flex;align-items:flex-end}
+.customer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
+.customer .veil{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(4,8,5,.92) 0%,rgba(4,8,5,.66) 46%,rgba(4,8,5,.24) 100%),
+             linear-gradient(180deg,rgba(4,8,5,.55) 0%,transparent 40%,rgba(4,8,5,.88) 100%)}
+.customer .wrap{position:relative;z-index:2;padding-block:clamp(52px,6vw,86px);width:100%}
+.customer blockquote{margin:0;max-width:44ch}
+.customer blockquote p{font-family:var(--head);font-size:clamp(22px,3vw,40px);line-height:1.14;
+  text-transform:uppercase;color:var(--white);margin:0}
+.customer cite{display:block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--faint);margin-top:18px}
+
+/* ---------- MOBILE VISUAL BREAK ---------- */
+.mbreak{display:none;position:relative;height:58vw;max-height:420px;overflow:hidden}
+.mbreak img{width:100%;height:100%;object-fit:cover;display:block}
+.mbreak::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 90% at 50% 40%,transparent 30%,rgba(4,8,5,.55) 100%)}
+@media (max-width:760px){.mbreak{display:block}}
+
 /* ---------- 5. WHITE FEATURED PROJECTS ---------- */
 .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2vw,26px)}
 .proj{position:relative;aspect-ratio:16/11;overflow:hidden;background:#0A130C}
@@ -464,6 +510,7 @@ body.slots .tbd::after{
     <nav class="nav" id="nav" aria-label="Main">
       <a href="#services">Services</a>
       <a href="#work">Projects</a>
+      <a href="#transformations">Before &amp; After</a>
       <a href="#commercial">Commercial</a>
       <a href="#crew">About</a>
       <a href="#estimate">Contact</a>
@@ -477,9 +524,7 @@ body.slots .tbd::after{
 <!-- ============ 1. DARK HERO ============ -->
 <main id="main">
 <section class="hero" id="top">
-  <div class="shot" style="--img:url(assets/hero-outdoor-living.jpg)">
-    <div class="slot-tag">Hero photo: wide, late-afternoon shot of a finished Special Green outdoor living space. Patio or pergola, landscape lighting on, manicured turf in foreground. Shot low and wide. Warm sunset grade.</div>
-  </div>
+  <div class="shot"><img src="assets/images/hero-outdoor-living.svg" alt="A finished Special Green outdoor living space at dusk, with landscape lighting on and manicured lawn in the foreground" width="2400" height="1350" decoding="async" fetchpriority="high"/><div class="slot-tag">Hero photo: wide, late-afternoon shot of a finished Special Green outdoor living space. Patio or pergola, landscape lighting on, manicured turf in foreground. Shot low and wide. Warm sunset grade.</div></div>
   <div class="veil"></div>
 
   <div class="badge">
@@ -533,9 +578,7 @@ body.slots .tbd::after{
         <p style="margin-top:28px"><a href="#services" class="btn btn--dark">See What We Do</a></p>
       </div>
       <div class="art">
-        <div class="shot v5" style="--img:url(assets/crew-portrait.jpg)">
-          <div class="slot-tag">Crew portrait: two or three Special Green team members in orange shirts, on site, mid-work. Vertical crop. Orange reads bright against green background.</div>
-        </div>
+        <div class="shot v5"><img src="assets/images/crew-portrait.svg" alt="Two Special Green crew members in orange shirts working on a residential property" width="1200" height="1500" decoding="async" loading="lazy"/><div class="slot-tag">Crew portrait: two or three Special Green team members in orange shirts, on site, mid-work. Vertical crop. Orange reads bright against green background.</div></div>
         <div class="tab">
           <strong>Orange Shirts.<br>Green Results.</strong>
           <span>The Special Green Crew</span>
@@ -565,7 +608,7 @@ body.slots .tbd::after{
 
     <div class="svc-grid">
       <article class="card">
-        <div class="shot v2" style="--img:url(assets/service-lawn-care.jpg)"><div class="slot-tag">Lawn care: striped, freshly cut turf with a crew member and mower in frame. Low angle, long shadows, high contrast.</div></div>
+        <div class="shot v2"><img src="assets/images/service-lawn-care.svg" alt="A Special Green operator cutting stripes into a large lawn with a commercial zero-turn mower" width="1600" height="1200" decoding="async" loading="lazy"/><div class="slot-tag">Lawn care: striped, freshly cut turf with a crew member and mower in frame. Low angle, long shadows, high contrast.</div></div>
         <div class="veil"></div>
         <div class="in">
           <svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 27h26"/><path d="M7 27V17M12 27V13M17 27V15M22 27V11M27 27V19"/><path d="M7 17 4 12M12 13 9 8M17 15l-3-5M22 11l-3-5M27 19l-3-5"/></svg>
@@ -576,7 +619,7 @@ body.slots .tbd::after{
       </article>
 
       <article class="card">
-        <div class="shot v3" style="--img:url(assets/service-landscaping.jpg)"><div class="slot-tag">Landscaping: new bed install, fresh mulch, plants in place, sunset light behind.</div></div>
+        <div class="shot v3"><img src="assets/images/service-landscaping.svg" alt="A newly installed landscape bed with fresh mulch and plants, edged clean" width="1600" height="1200" decoding="async" loading="lazy"/><div class="slot-tag">Landscaping: new bed install, fresh mulch, plants in place, sunset light behind.</div></div>
         <div class="veil"></div>
         <div class="in">
           <svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28V13"/><path d="M16 15c-5 0-9-3-9-8 5 0 9 3 9 8Z"/><path d="M16 19c5 0 9-3 9-8-5 0-9 3-9 8Z"/><path d="M6 28h20"/></svg>
@@ -587,7 +630,7 @@ body.slots .tbd::after{
       </article>
 
       <article class="card">
-        <div class="shot v4" style="--img:url(assets/service-irrigation.jpg)"><div class="slot-tag">Irrigation: sprinkler heads running at golden hour, water catching the light against dark turf.</div></div>
+        <div class="shot v4"><img src="assets/images/service-irrigation.svg" alt="Irrigation sprinkler heads running across a lawn in golden afternoon light" width="1600" height="1200" decoding="async" loading="lazy"/><div class="slot-tag">Irrigation: sprinkler heads running at golden hour, water catching the light against dark turf.</div></div>
         <div class="veil"></div>
         <div class="in">
           <svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28c-3.6 0-6.5-2.8-6.5-6.3C9.5 17 16 4 16 4s6.5 13 6.5 17.7c0 3.5-2.9 6.3-6.5 6.3Z"/><path d="M16 22a2.6 2.6 0 0 1-2.6-2.6"/></svg>
@@ -598,8 +641,18 @@ body.slots .tbd::after{
       </article>
 
     </div>
+
+    <div class="detail">
+      <figure><img src="assets/images/detail-edging.svg" alt="Close crop of a crisp lawn edge cut along a concrete driveway" width="1200" height="1200" decoding="async" loading="lazy"/><figcaption>Edging</figcaption></figure>
+      <figure><img src="assets/images/detail-trimmer.svg" alt="A crew member’s hands on a commercial string trimmer, orange sleeve in frame" width="1200" height="1200" decoding="async" loading="lazy"/><figcaption>Trimming</figcaption></figure>
+      <figure><img src="assets/images/detail-blower.svg" alt="A backpack blower clearing grass clippings from a driveway" width="1200" height="1200" decoding="async" loading="lazy"/><figcaption>Blowing</figcaption></figure>
+      <figure><img src="assets/images/detail-irrigation-valve.svg" alt="A technician’s hands working on an irrigation valve box with tools laid out" width="1200" height="1200" decoding="async" loading="lazy"/><figcaption>Irrigation Repair</figcaption></figure>
+    </div>
   </div>
 </section>
+
+<!-- ============ MOBILE VISUAL BREAK ============ -->
+<div class="mbreak"><img src="assets/images/mobile-break-01.svg" alt="A large, well-maintained Baton Rouge lawn under mature live oaks" width="1200" height="1500" decoding="async" loading="lazy"/></div>
 
 <!-- ============ 5. WHITE FEATURED PROJECTS ============ -->
 <section class="light pad" id="work">
@@ -613,21 +666,39 @@ body.slots .tbd::after{
     </div>
 
     <div class="proj-grid">
-      <a class="proj" href="#work"><div class="shot v3" style="--img:url(assets/project-patio-landscape.jpg)"><div class="slot-tag">Outdoor living build: patio, seating, fire feature, lighting on at dusk.</div></div><div class="veil"></div>
+      <a class="proj" href="#work"><div class="shot v3"><img src="assets/images/project-patio-landscape.svg" alt="A finished patio and landscape build with seating and landscape lighting at dusk" width="1600" height="1100" decoding="async" loading="lazy"/><div class="slot-tag">Outdoor living build: patio, seating, fire feature, lighting on at dusk.</div></div><div class="veil"></div>
         <div class="meta"><span>Outdoor Living</span><strong>Patio &amp; Landscape Build</strong></div></a>
-      <a class="proj" href="#work"><div class="shot v2" style="--img:url(assets/project-front-yard.jpg)"><div class="slot-tag">Front yard transformation, after shot. Straight-on, sharp bed lines.</div></div><div class="veil"></div>
+      <a class="proj" href="#work"><div class="shot v2"><img src="assets/images/project-front-yard.svg" alt="A completed front yard installation with sharp bed lines and new planting" width="1600" height="1100" decoding="async" loading="lazy"/><div class="slot-tag">Front yard transformation, after shot. Straight-on, sharp bed lines.</div></div><div class="veil"></div>
         <div class="meta"><span>Landscaping</span><strong>Full Front Yard Install</strong></div></a>
-      <a class="proj" href="#work"><div class="shot v4" style="--img:url(assets/project-irrigation.jpg)"><div class="slot-tag">Irrigation zone running across a large lawn, wide.</div></div><div class="veil"></div>
+      <a class="proj" href="#work"><div class="shot v4"><img src="assets/images/project-irrigation.svg" alt="An irrigation zone running across a large residential lawn" width="1600" height="1100" decoding="async" loading="lazy"/><div class="slot-tag">Irrigation zone running across a large lawn, wide.</div></div><div class="veil"></div>
         <div class="meta"><span>Irrigation</span><strong>System Install &amp; Repair</strong></div></a>
-      <a class="proj" href="#work"><div class="shot v6" style="--img:url(assets/project-office-park.jpg)"><div class="slot-tag">Commercial property grounds: office park or retail center, clean turf and beds.</div></div><div class="veil"></div>
+      <a class="proj" href="#work"><div class="shot v6"><img src="assets/images/project-office-park.svg" alt="Maintained grounds at an office park, with clean turf and planted beds" width="1600" height="1100" decoding="async" loading="lazy"/><div class="slot-tag">Commercial property grounds: office park or retail center, clean turf and beds.</div></div><div class="veil"></div>
         <div class="meta"><span>Commercial</span><strong>Office Park Grounds</strong></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEFORE AND AFTER ============ -->
+<section class="dark pad" id="transformations">
+  <div class="wrap">
+    <div class="svc-head">
+      <div>
+        <p class="eyebrow">Before &amp; After</p>
+        <h2>The Same Yard.<br><span class="accent">Six Weeks Apart.</span></h2>
+      </div>
+      <p class="lead" style="max-width:38ch;margin:0">Same camera position, same time of day. Nothing staged and nothing skipped.</p>
+    </div>
+    <div class="ba-grid">
+    <figure class="ba"><div class="pair"><div class="half"><span>Before</span><img src="assets/images/before-01-before.svg" alt="A tired front yard before Special Green began work, with thin turf and overgrown beds" width="1600" height="1200" decoding="async" loading="lazy"/></div><div class="half is-after"><span>After</span><img src="assets/images/before-01-after.svg" alt="The same front yard after rebuilding, with new sod, fresh beds and clean edges" width="1600" height="1200" decoding="async" loading="lazy"/></div></div><figcaption><em>Landscaping</em><b>Full Front Yard Rebuild</b></figcaption></figure>
+    <figure class="ba"><div class="pair"><div class="half"><span>Before</span><img src="assets/images/before-02-before.svg" alt="An overgrown landscape bed before work, with weeds and old mulch" width="1600" height="1200" decoding="async" loading="lazy"/></div><div class="half is-after"><span>After</span><img src="assets/images/before-02-after.svg" alt="The same bed after replanting and fresh mulch, edged clean" width="1600" height="1200" decoding="async" loading="lazy"/></div></div><figcaption><em>Landscaping</em><b>Bed &amp; Mulch Transformation</b></figcaption></figure>
+    <figure class="ba"><div class="pair"><div class="half"><span>Before</span><img src="assets/images/before-03-before.svg" alt="A patchy backyard before work, with bare ground and standing water" width="1600" height="1200" decoding="async" loading="lazy"/></div><div class="half is-after"><span>After</span><img src="assets/images/before-03-after.svg" alt="The same backyard after grading, drainage and new turf" width="1600" height="1200" decoding="async" loading="lazy"/></div></div><figcaption><em>Lawn Care</em><b>Backyard &amp; Drainage</b></figcaption></figure>
     </div>
   </div>
 </section>
 
 <!-- ============ 6. DARK COMMERCIAL ============ -->
 <section class="commercial pad" id="commercial">
-  <div class="shot v6" style="--img:url(assets/commercial-crew-trucks.jpg)"><div class="slot-tag">Commercial credibility: Special Green crew and trucks on a commercial property. Orange shirts visible, equipment staged, early morning light.</div></div>
+  <div class="shot v6"><img src="assets/images/commercial-crew-trucks.svg" alt="Special Green trucks and crew working the grounds of a commercial property in the early morning" width="2400" height="1350" decoding="async" loading="lazy"/><div class="slot-tag">Commercial credibility: Special Green crew and trucks on a commercial property. Orange shirts visible, equipment staged, early morning light.</div></div>
   <div class="veil"></div>
   <div class="wrap">
     <div class="inner">
@@ -659,14 +730,26 @@ body.slots .tbd::after{
     </div>
 
     <div class="crew-shots">
-      <div class="shot v5" style="--img:url(assets/crew-group.jpg)"><div class="slot-tag">Hero crew shot: full team in orange shirts in front of trucks and equipment. Wide, confident, high contrast.</div></div>
-      <div class="shot v2" style="--img:url(assets/crew-trimmer.jpg)"><div class="slot-tag">Crew member working: hands on the trimmer, tight crop, orange sleeve in frame.</div></div>
-      <div class="shot v3" style="--img:url(assets/crew-truck-load.jpg)"><div class="slot-tag">Crew member loading or unloading equipment at a truck. Motion, dust, real work.</div></div>
+      <div class="shot v5"><img src="assets/images/crew-group.svg" alt="The Special Green crew in orange shirts in front of their work trucks and trailer" width="1600" height="1200" decoding="async" loading="lazy"/><div class="slot-tag">Hero crew shot: full team in orange shirts in front of trucks and equipment. Wide, confident, high contrast.</div></div>
+      <div class="shot v2"><img src="assets/images/crew-trimmer.svg" alt="A Special Green crew member trimming along a landscape bed with a commercial trimmer" width="1200" height="1200" decoding="async" loading="lazy"/><div class="slot-tag">Crew member working: hands on the trimmer, tight crop, orange sleeve in frame.</div></div>
+      <div class="shot v3"><img src="assets/images/crew-truck-load.svg" alt="A Special Green crew member unloading equipment from the work trailer" width="1200" height="1200" decoding="async" loading="lazy"/><div class="slot-tag">Crew member loading or unloading equipment at a truck. Motion, dust, real work.</div></div>
     </div>
 
     <blockquote class="crew-quote">
       <p>We do not leave a property until it looks like the one we would want to pull up to.</p>
       <cite class="tbd">Attribution to confirm: owner or crew lead</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============ THE CUSTOMER ============ -->
+<section class="customer" aria-label="Working with Special Green">
+  <img src="assets/images/customer-crew-leader.svg" alt="A homeowner talking with a Special Green crew leader on their finished property" width="2400" height="1350" decoding="async" loading="lazy"/>
+  <div class="veil"></div>
+  <div class="wrap">
+    <blockquote>
+      <p>You get the same crew, the same standard, and somebody who answers the phone.</p>
+      <cite class="tbd">Attribution to confirm</cite>
     </blockquote>
   </div>
 </section>
@@ -706,9 +789,12 @@ body.slots .tbd::after{
   </div>
 </section>
 
+<!-- ============ MOBILE VISUAL BREAK ============ -->
+<div class="mbreak"><img src="assets/images/mobile-break-02.svg" alt="A finished backyard with mature landscaping on a Baton Rouge property" width="1200" height="1500" decoding="async" loading="lazy"/></div>
+
 <!-- ============ 9. DARK CTA ============ -->
 <section class="cta-band pad" id="estimate">
-  <div class="shot v5" style="--img:url(assets/cta-sunset.jpg)"><div class="slot-tag">Footer CTA background: crew in orange shirts finishing a job at sunset. Heavily darkened, used as texture behind the form.</div></div>
+  <div class="shot v5"><img src="assets/images/cta-sunset.svg" alt="A Special Green crew finishing a job at sunset" width="2400" height="1350" decoding="async" loading="lazy"/><div class="slot-tag">Footer CTA background: crew in orange shirts finishing a job at sunset. Heavily darkened, used as texture behind the form.</div></div>
   <div class="veil"></div>
   <div class="wrap">
     <div class="cta-grid">
