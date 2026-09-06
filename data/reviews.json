@@ -1,0 +1,24 @@
+{
+  "_how_to_use": [
+    "Paste each Google review into the list below, then run:",
+    "    python3 tools/update-reviews.py",
+    "and commit. Newest first reads best.",
+    "",
+    "Per review:",
+    "  text      the review, in the customer's own words. Do not rewrite it.",
+    "  name      how it appears on Google. First name plus last initial is fine.",
+    "  location  optional, e.g. 'Baton Rouge' or 'Commercial client'.",
+    "  rating    optional, defaults to 5.",
+    "  initial   optional, defaults to the first letter of the name.",
+    "",
+    "An empty list removes the whole section from the site. That is on purpose:",
+    "no reviews is fine, invented reviews are not.",
+    "",
+    "Only paste reviews the company actually received. Do not edit a customer's",
+    "words beyond removing an obvious typo."
+  ],
+
+  "note": "Verified Google reviews.",
+
+  "reviews": []
+}
