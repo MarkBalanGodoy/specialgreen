@@ -51,39 +51,50 @@ INCOMING = os.path.join(ROOT, "assets", "incoming")
 IMAGES = os.path.join(ROOT, "assets", "images")
 INDEX = os.path.join(ROOT, "index.html")
 
-JPEG_QUALITY = 80
-WEBP_QUALITY = 82
+JPEG_QUALITY = 76
+WEBP_QUALITY = 72
 
-# Slot name -> (target width, target height). Same table the placeholder
-# generator uses, so the two can never drift apart on aspect ratio.
+# Slot name -> (target width, target height).
+#
+# These are display sizes, not the design's nominal sizes. Every slot is sized
+# to how large it actually renders, doubled for retina. The before/after halves
+# render at roughly 200 CSS pixels, so shipping 1536px into them was sending
+# about four times the pixels a phone could ever show. Aspect ratios are
+# identical to the design's, so the crops are unchanged.
 SLOTS = {
-    "hero-outdoor-living":     (2400, 1350),
-    "crew-portrait":           (1200, 1500),
-    "crew-group":              (1600, 1200),
-    "crew-trimmer":            (1200, 1200),
-    "crew-truck-load":         (1200, 1200),
-    "commercial-crew-trucks":  (2400, 1350),
-    "customer-crew-leader":    (2400, 1350),
-    "cta-sunset":              (2400, 1350),
-    "service-lawn-care":       (1600, 1200),
-    "service-landscaping":     (1600, 1200),
-    "service-irrigation":      (1600, 1200),
-    "detail-edging":           (1200, 1200),
-    "detail-trimmer":          (1200, 1200),
-    "detail-blower":           (1200, 1200),
-    "detail-irrigation-valve": (1200, 1200),
-    "project-patio-landscape": (1600, 1100),
-    "project-front-yard":      (1600, 1100),
-    "project-irrigation":      (1600, 1100),
-    "project-office-park":     (1600, 1100),
-    "before-01-before":        (1600, 1200),
-    "before-01-after":         (1600, 1200),
-    "before-02-before":        (1600, 1200),
-    "before-02-after":         (1600, 1200),
-    "before-03-before":        (1600, 1200),
-    "before-03-after":         (1600, 1200),
-    "mobile-break-01":         (1200, 1500),
-    "mobile-break-02":         (1200, 1500),
+    # full-bleed bands, 16:9
+    "hero-outdoor-living":     (1920, 1080),
+    "commercial-crew-trucks":  (1920, 1080),
+    "customer-crew-leader":    (1920, 1080),
+    "cta-sunset":              (1920, 1080),
+    # vertical, 4:5
+    "crew-portrait":           (960, 1200),
+    "mobile-break-01":         (900, 1125),
+    "mobile-break-02":         (900, 1125),
+    # 4:3
+    "crew-group":              (1100, 825),
+    "service-lawn-care":       (900, 675),
+    "service-landscaping":     (900, 675),
+    "service-irrigation":      (900, 675),
+    # square details
+    "crew-trimmer":            (700, 700),
+    "crew-truck-load":         (700, 700),
+    "detail-edging":           (700, 700),
+    "detail-trimmer":          (700, 700),
+    "detail-blower":           (700, 700),
+    "detail-irrigation-valve": (700, 700),
+    # project cards, 16:11
+    "project-patio-landscape": (1200, 825),
+    "project-front-yard":      (1200, 825),
+    "project-irrigation":      (1200, 825),
+    "project-office-park":     (1200, 825),
+    # before/after halves render small; 4:3
+    "before-01-before":        (600, 450),
+    "before-01-after":         (600, 450),
+    "before-02-before":        (600, 450),
+    "before-02-after":         (600, 450),
+    "before-03-before":        (600, 450),
+    "before-03-after":         (600, 450),
 }
 
 READABLE = (".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".bmp", ".heic", ".heif")
@@ -161,11 +172,18 @@ def process(slot, src, gravity):
     webp = os.path.join(IMAGES, slot + ".webp")
     im.save(jpg, "JPEG", quality=JPEG_QUALITY, optimize=True, progressive=True)
     im.save(webp, "WEBP", quality=WEBP_QUALITY, method=6)
+    # WebP usually wins, but not always: on noisy phone photos of foliage it can
+    # come out larger than JPEG. Serving it then would cost bytes for nothing, so
+    # keep it only when it actually saves something worth a second file.
+    jpg_kb = os.path.getsize(jpg) / 1024.0
+    webp_kb = os.path.getsize(webp) / 1024.0
+    keep_webp = webp_kb < jpg_kb * 0.95
+    if not keep_webp:
+        os.remove(webp)
     return {
         "slot": slot, "src": os.path.basename(src), "from": (ow, oh),
-        "to": im.size, "soft": soft,
-        "jpg_kb": os.path.getsize(jpg) / 1024.0,
-        "webp_kb": os.path.getsize(webp) / 1024.0,
+        "to": im.size, "soft": soft, "webp": keep_webp,
+        "jpg_kb": jpg_kb, "webp_kb": webp_kb if keep_webp else 0.0,
     }
 
 
@@ -201,12 +219,12 @@ def switch_to_photo(html, slot):
 
 def _build_picture(slot, rest):
     rest = rest.rstrip().rstrip("/")
+    src = ""
+    if os.path.exists(os.path.join(IMAGES, slot + ".webp")):
+        src = '<source srcset="assets/images/%s.webp" type="image/webp"/>' % slot
     return (
-        '<picture data-slot="%s">'
-        '<source srcset="assets/images/%s.webp" type="image/webp"/>'
-        '<img src="assets/images/%s.jpg"%s/>'
-        "</picture>"
-    ) % (slot, slot, slot, rest)
+        '<picture data-slot="%s">%s<img src="assets/images/%s.jpg"%s/></picture>'
+    ) % (slot, src, slot, rest)
 
 
 def revert_to_placeholder(html, slot):
@@ -329,9 +347,10 @@ def main():
 
     print("%-26s %-11s %-11s %8s %8s" % ("slot", "source", "output", "jpg", "webp"))
     for r in results:
-        print("%-26s %-11s %-11s %7.0fK %7.0fK%s" % (
-            r["slot"], "%dx%d" % r["from"], "%dx%d" % r["to"],
-            r["jpg_kb"], r["webp_kb"], "  (soft: source below target width)" if r["soft"] else ""))
+        print("%-26s %-11s %-11s %7.0fK %8s%s" % (
+            r["slot"], "%dx%d" % r["from"], "%dx%d" % r["to"], r["jpg_kb"],
+            "%.0fK" % r["webp_kb"] if r["webp"] else "-",
+            "  (soft)" if r["soft"] else ""))
     print("\n%d photo(s) processed, %d slot(s) switched in index.html." % (len(results), changed))
     left = sum(1 for s in SLOTS if current_state(html)[s] != "photo")
     print("%d slot(s) still on placeholder illustrations." % left)
