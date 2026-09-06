@@ -11,33 +11,33 @@ zips' contents into `assets/incoming/` renamed per the first column and run
 
 | Slot | Source photograph | Crop |
 | --- | --- | --- |
-| `hero-outdoor-living` | Residential_Landscaping/04_Backyard_Garden | centre |
-| `crew-portrait` | French_Drain/05_Pipe_Installation | centre |
+| `hero-outdoor-living` | Residential_Landscaping/04_Backyard_Garden | center |
+| `crew-portrait` | French_Drain/05_Pipe_Installation | center |
 | `crew-group` | French_Drain/03_Excavation | `--top` |
 | `crew-trimmer` | French_Drain/04_Filter_Fabric | `--top` |
 | `crew-truck-load` | French_Drain/06_Gravel_Base | `--top` |
-| `commercial-crew-trucks` | Lake_Plaza_Commercial/04_After_Angle | centre |
-| `customer-crew-leader` | Residential_Landscaping/05_Front_Garden | centre |
+| `commercial-crew-trucks` | Lake_Plaza_Commercial/04_After_Angle | center |
+| `customer-crew-leader` | Residential_Landscaping/05_Front_Garden | center |
 | `cta-sunset` | French_Drain/01_Layout | `--top` |
-| `service-lawn-care` | Residential_Landscaping/03_Lawn_and_Mulch | centre |
-| `service-landscaping` | Seasonal_Color/02_Flower_Installation | centre |
-| `service-irrigation` | French_Drain/02_Excavation_Side | centre |
-| `detail-edging` | Residential_Landscaping/07_Mulched_Beds | centre |
-| `detail-trimmer` | Residential_Landscaping/06_Trimmed_Shrubs | centre |
-| `detail-blower` | Residential_Landscaping/10_Front_Bed_Closeup | centre |
-| `detail-irrigation-valve` | French_Drain/07_Final_Layer | centre |
+| `service-lawn-care` | Residential_Landscaping/03_Lawn_and_Mulch | center |
+| `service-landscaping` | Seasonal_Color/02_Flower_Installation | center |
+| `service-irrigation` | French_Drain/02_Excavation_Side | center |
+| `detail-edging` | Residential_Landscaping/07_Mulched_Beds | center |
+| `detail-trimmer` | Residential_Landscaping/06_Trimmed_Shrubs | center |
+| `detail-blower` | Residential_Landscaping/10_Front_Bed_Closeup | center |
+| `detail-irrigation-valve` | French_Drain/07_Final_Layer | center |
 | `project-patio-landscape` | Planters/01_Poolside_Planters | `--top` |
 | `project-front-yard` | Residential_Landscaping/09_Front_Bed_Design | **left 16% trimmed first**, see below |
-| `project-irrigation` | Seasonal_Color/05_Front_Bed | centre |
-| `project-office-park` | Lake_Plaza_Commercial/03_After_Front | centre |
-| `before-01-before` | Residential_Landscaping/01_Before | centre |
-| `before-01-after` | Residential_Landscaping/02_After_Red_Mulch | centre |
-| `before-02-before` | Lake_Plaza_Commercial/01_Before | centre |
-| `before-02-after` | Lake_Plaza_Commercial/02_After_Front | centre |
-| `before-03-before` | Commercial_Garden/01_Before | centre |
-| `before-03-after` | Commercial_Garden/02_After | centre |
-| `mobile-break-01` | Residential_Landscaping/08_Trellis_Planting | centre |
-| `mobile-break-02` | Seasonal_Color/04_Mulch_and_Flowers | centre |
+| `project-irrigation` | Seasonal_Color/05_Front_Bed | center |
+| `project-office-park` | Lake_Plaza_Commercial/03_After_Front | center |
+| `before-01-before` | Residential_Landscaping/01_Before | center |
+| `before-01-after` | Residential_Landscaping/02_After_Red_Mulch | center |
+| `before-02-before` | Lake_Plaza_Commercial/01_Before | center |
+| `before-02-after` | Lake_Plaza_Commercial/02_After_Front | center |
+| `before-03-before` | Commercial_Garden/01_Before | center |
+| `before-03-after` | Commercial_Garden/02_After | center |
+| `mobile-break-01` | Residential_Landscaping/08_Trellis_Planting | center |
+| `mobile-break-02` | Seasonal_Color/04_Mulch_and_Flowers | center |
 
 ## The one manual edit
 
