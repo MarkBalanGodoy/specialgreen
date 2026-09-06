@@ -1,9 +1,38 @@
 # Photography drop folder
 
-The homepage is already wired to every filename below. Drop the files in this folder with
-these exact names and they appear on the site. No code changes.
+## How to put a photo on the site
 
-Until a file exists, that slot shows a placeholder illustration from
+Drop photos into **`assets/incoming/`**, named after the slot they belong to, then run one
+command:
+
+```
+python3 tools/prepare-photos.py
+```
+
+That crops each photo to the right shape, resizes it, writes a JPEG and a WebP into
+`assets/images/`, and switches that slot in `index.html` over to the photo. Slots with no
+photo keep their placeholder. Commit and push and it is live.
+
+The extension does not matter and neither does the size. Straight off a phone is fine.
+Name it for the slot: `crew-group.jpg`, `hero-outdoor-living.jpg`, and so on, using the
+names in the table below.
+
+Useful flags:
+
+```
+python3 tools/prepare-photos.py --check    # which slots still need a photo
+python3 tools/prepare-photos.py --revert   # put everything back on placeholders
+```
+
+Photos are cropped from the centre. If that cuts the wrong part off, add a hint to the
+filename: `crew-group--top.jpg`, or `--bottom`, `--left`, `--right`.
+
+> An earlier version of this file said to drop `.jpg` files into `assets/` and they would
+> appear with no code changes. That was wrong on both counts. The page references `.svg`
+> files in `assets/images/`, so photos dropped that way were silently ignored. Use the
+> command above.
+
+Until a photo exists, that slot shows a placeholder illustration from
 `tools/make-placeholder-art.py`, so the page never looks broken while you are waiting on
 photography.
 
@@ -54,11 +83,15 @@ of work the company actually did.
 
 ## Specs
 
-JPEG, quality 80. 2400px wide for `hero-*`, `commercial-*`, and `cta-*`. 1600px wide for
-everything else. `crew-portrait.jpg` is the one vertical shot: 1200x1500.
+`tools/prepare-photos.py` handles all of this, so you do not need to export to spec. Send
+the largest version you have and let the tool crop and compress it.
 
-Phone photos are fine if that is what exists. A real crew photo from a phone beats stock
-every time on a site like this.
+For reference, it produces JPEG quality 80 plus a WebP alongside, at 2400px wide for
+`hero-*`, `commercial-*` and `cta-*`, and 1600px for everything else. `crew-portrait` and
+the two mobile breaks are the vertical ones at 1200x1500.
+
+It never upscales. If a photo is smaller than the target it is used at its own size and the
+tool prints a warning, because a stretched photo looks worse than a slightly soft one.
 
 ## Priority
 
