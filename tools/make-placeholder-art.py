@@ -270,66 +270,114 @@ def turf(a, hy, vx=None, n=15, near=TURF, far=TURF_FAR, lit=TURF_LIT, stripes=Tr
     a.rect(0, a.h * .55, a.w, a.h * .45, a.lg(0, a.h * .55, 0, a.h, [(0, INK, 0), (1, INK, .32)]))
 
 
-def person(a, x, ybase, h, shirt=ORANGE, dark="#0A0F0B", flip=False, pose="stand", cap=True):
-    """Crew silhouette.
+def _taper(a, pts, widths, col, op=None):
+    """Fill a polyline with a per-point half-width.
 
-    Proportioned off a real figure (head is about 1/7.5 of standing height)
-    rather than eyeballed, because a wide torso on a small head reads as a
-    traffic cone. The orange shirt is the brand cue and carries the colour.
+    Limbs need to change thickness along their length - shoulder to elbow to
+    wrist, thigh to knee to ankle. A constant-width stroke reads as a pipe.
+    """
+    left, right = [], []
+    n = len(pts)
+    for i, (px, py) in enumerate(pts):
+        if i == 0:
+            dx, dy = pts[1][0] - px, pts[1][1] - py
+        elif i == n - 1:
+            dx, dy = px - pts[i - 1][0], py - pts[i - 1][1]
+        else:
+            dx, dy = pts[i + 1][0] - pts[i - 1][0], pts[i + 1][1] - pts[i - 1][1]
+        L = math.hypot(dx, dy) or 1.0
+        nx, ny = -dy / L, dx / L
+        w = widths[i]
+        left.append((px + nx * w, py + ny * w))
+        right.append((px - nx * w, py - ny * w))
+    a.poly(left + right[::-1], col, op)
+
+
+def person(a, x, ybase, h, shirt=ORANGE, dark="#0A0F0B", flip=False, pose="stand", cap=True):
+    """Crew figure, built on a skeleton at real human proportions.
+
+    Height is measured in head units (hu), the standard figure-drawing measure:
+    an adult is about 7.5 heads tall, shoulders about 2 heads wide, the hips sit
+    at just under half the total height. Limbs are tapered polygons over a
+    joint skeleton - shoulder, elbow, wrist and hip, knee, ankle - so the arms
+    bend and the legs have calves. Sleeves stop at mid upper arm, which is what
+    separates a work shirt from a painted-on block of colour.
     """
     s = -1 if flip else 1
-    hr = h * .055                                     # head radius
-    sy = ybase - h * .845                             # shoulder line
-    wy = ybase - h * .52                              # waist
-    sw_ = h * .076                                    # half shoulder width
-    ww = h * .054                                     # half waist width
-    # legs first so the shirt overlaps them. Hips carry near the shoulder width
-    # or the figure reads as a torso on stilts.
-    hipw = ww * 1.18
-    a.path("M %s %s L %s %s L %s %s L %s %s L %s %s L %s %s L %s %s Z" % (
-        f(x - hipw), f(wy), f(x + hipw), f(wy),
-        f(x + ww * .8), f(ybase), f(x + ww * .22), f(ybase),
-        f(x), f(ybase - h * .16),
-        f(x - ww * .22), f(ybase), f(x - ww * .8), f(ybase)), fill=dark)
-    # head and neck
-    a.rect(x - hr * .42, ybase - h * .87, hr * .84, h * .04, dark)
-    a.ell(x, ybase - h * .925, hr, hr * 1.08, dark)
+    hu = h / 7.5
+    top = ybase - h
+    y_chin = top + hu * 1.02
+    y_sh = top + hu * 1.45
+    y_ch = top + hu * 2.30
+    y_wa = top + hu * 3.05
+    y_hip = top + hu * 3.70
+    y_knee = top + hu * 5.35
+    y_ank = top + hu * 7.28
+
+    w_sh, w_ch, w_wa, w_hip = hu * .92, hu * .80, hu * .60, hu * .72
+    jig = (a.rng.random() - .5) * hu * .12          # small stance variation
+
+    # ---- legs (drawn first; the shirt hem overlaps them) ----
+    for d in (-1, 1):
+        hx = x + d * hu * .34
+        kx = hx + d * hu * .04 + (jig if d > 0 else -jig) * .5
+        ax_ = kx - d * hu * .02
+        _taper(a, [(hx, y_hip - hu * .1), (kx, y_knee), (ax_, y_ank)],
+               [hu * .38, hu * .26, hu * .16], dark)
+        # boot
+        a.poly([(ax_ - hu * .17, y_ank), (ax_ + hu * .19, y_ank),
+                (ax_ + s * hu * .42, ybase), (ax_ - hu * .2, ybase)], dark)
+
+    # ---- head, neck, cap ----
+    # Backlight: a slightly larger, offset warm shape behind the head. The dark
+    # skull covers most of it and leaves a crescent, which is what stops the
+    # head disappearing into a dark treeline. Drawn behind, never across.
+    a.ell(x + s * hu * .08, top + hu * .49, hu * .5, hu * .59, AMBER, op=.3)
+    # Head is sized off the shoulders: an adult is about two heads across the
+    # shoulders, so an undersized head is what makes a figure read as a doll.
+    a.rect(x - hu * .2, y_chin - hu * .12, hu * .4, hu * .5, dark)       # neck
+    a.ell(x, top + hu * .54, hu * .44, hu * .52, dark)                   # skull
     if cap:
-        a.ell(x, ybase - h * .952, hr * 1.04, hr * .6, dark)          # crown
-        a.ell(x + s * hr * 1.05, ybase - h * .943, hr * .8, hr * .2, dark)  # bill
-    # torso: shoulders taper to waist
-    a.path("M %s %s Q %s %s %s %s L %s %s L %s %s Z" % (
-        f(x - sw_), f(sy), f(x), f(sy - h * .028), f(x + sw_), f(sy),
-        f(x + ww), f(wy), f(x - ww), f(wy)), fill=shirt)
-    # arms
+        a.ell(x, top + hu * .44, hu * .46, hu * .34, dark)               # crown
+        a.poly([(x + s * hu * .18, top + hu * .5), (x + s * hu * .86, top + hu * .56),
+                (x + s * hu * .84, top + hu * .66), (x + s * hu * .18, top + hu * .64)],
+               dark)                                                     # bill
+
+    # ---- torso in the work shirt ----
+    a.poly([(x - w_sh * 1.06 + s * hu * .1, y_sh + hu * .04),
+            (x + w_sh * 1.06 + s * hu * .1, y_sh + hu * .04),
+            (x + w_ch * 1.06 + s * hu * .1, y_ch),
+            (x - w_ch * 1.06 + s * hu * .1, y_ch)], AMBER, op=.2)
+    a.poly([(x - w_sh, y_sh), (x - w_sh * .5, y_sh - hu * .14),
+            (x + w_sh * .5, y_sh - hu * .14), (x + w_sh, y_sh),
+            (x + w_ch, y_ch), (x + w_wa, y_wa), (x + w_hip, y_hip + hu * .2),
+            (x - w_hip, y_hip + hu * .2), (x - w_wa, y_wa), (x - w_ch, y_ch)],
+           shirt)
+
+    # ---- arms: shoulder, elbow, wrist ----
+    def arm(d, elbow, wrist):
+        sh = (x + d * w_sh * .88, y_sh + hu * .12)
+        mid = ((sh[0] + elbow[0]) / 2.0, (sh[1] + elbow[1]) / 2.0)
+        # sleeve to mid upper arm, then bare forearm
+        _taper(a, [sh, mid], [hu * .27, hu * .24], shirt)
+        _taper(a, [mid, elbow, wrist], [hu * .22, hu * .19, hu * .13], dark)
+        a.ell(wrist[0], wrist[1] + hu * .1, hu * .13, hu * .15, dark)     # hand
+
     if pose == "work":
-        # both arms forward and down, holding something
-        a.path("M %s %s Q %s %s %s %s" % (
-            f(x + s * sw_ * .85), f(sy + h * .02),
-            f(x + s * h * .13), f(ybase - h * .68), f(x + s * h * .17), f(ybase - h * .56)),
-            stroke=shirt, sw=h * .046)
-        a.path("M %s %s Q %s %s %s %s" % (
-            f(x - s * sw_ * .8), f(sy + h * .03),
-            f(x - s * h * .04), f(ybase - h * .66), f(x + s * h * .06), f(ybase - h * .58)),
-            stroke=shirt, sw=h * .042)
+        arm(s, (x + s * hu * 1.15, y_wa - hu * .1), (x + s * hu * 1.5, y_wa + hu * .75))
+        arm(-s, (x - s * hu * .78, y_ch + hu * .7), (x - s * hu * .5, y_wa + hu * .7))
     elif pose == "lift":
         for d in (1, -1):
-            a.path("M %s %s Q %s %s %s %s" % (
-                f(x + d * sw_ * .85), f(sy + h * .02),
-                f(x + d * h * .12), f(ybase - h * .76), f(x + d * h * .1), f(ybase - h * .66)),
-                stroke=shirt, sw=h * .044)
-    else:
-        # Arms hang just outside the tapering torso. Drawn inside its outline
-        # they merge into one mass and the figure reads as a capsule.
+            arm(d, (x + d * hu * 1.0, y_ch + hu * .5), (x + d * hu * .78, y_wa + hu * .3))
+    elif pose == "hips":
         for d in (1, -1):
-            a.path("M %s %s L %s %s" % (
-                f(x + d * sw_ * .82), f(sy + h * .035),
-                f(x + d * sw_ * 1.12), f(wy + h * .05)),
-                stroke=shirt, sw=h * .036)
-    # rim light on the sun side so the silhouette separates from a dark treeline
-    a.path("M %s %s L %s %s" % (
-        f(x + s * sw_ * .92), f(sy + h * .04), f(x + s * (ww + h * .006)), f(wy - h * .01)),
-        stroke=AMBER, sw=h * .011, op=.4)
+            arm(d, (x + d * hu * 1.5, y_ch + hu * .55), (x + d * w_hip * .95, y_hip - hu * .05))
+    else:
+        for d in (1, -1):
+            arm(d, (x + d * (w_ch + hu * .3), y_ch + hu * .55),
+                   (x + d * (w_wa + hu * .38), y_hip + hu * .55))
+
+
 
 
 def truck(a, x, ybase, w, body="#111A14", accent=None):
@@ -584,10 +632,12 @@ def s_crew_group(a):
     turf(a, hy, vx=a.w * .5, n=11)
     truck(a, a.w * .0, a.h * .82, a.w * .3, accent=DEEPO)
     trailer(a, a.w * .68, a.h * .82, a.w * .34)
+    # mixed stances; six identical poses in a row reads as a clip-art strip
+    poses = ("stand", "hips", "stand", "work", "hips", "stand")
     for i in range(6):
         x = .17 + i * .125
         person(a, a.w * x, a.h * (.93 + (i % 2) * .012), a.h * (.33 + (i % 3) * .022),
-               shirt=ORANGE if i % 2 == 0 else HOT, flip=i % 3 == 0)
+               shirt=ORANGE if i % 2 == 0 else HOT, flip=i % 3 == 0, pose=poses[i])
     vignette(a, .42)
 
 
