@@ -30,10 +30,10 @@
 
 :root{
   /* base */
-  --black-green:#060A07;      /* very dark green / black - page background */
-  --forest:#0E1A12;           /* deep forest green - secondary surface */
-  --charcoal:#14181A;         /* charcoal - secondary surface */
-  --near-black:#0A1109;       /* near-black green - secondary surface */
+  --black-green:#0B140E;      /* deep green - page background */
+  --forest:#16281C;           /* forest green - secondary surface */
+  --charcoal:#1C2225;         /* charcoal - secondary surface */
+  --near-black:#101B13;       /* dark green - secondary surface */
   --white:#FFFFFF;
   --soft:#C7CDC6;             /* soft gray / off-white - secondary text */
   --faint:rgba(199,205,198,.55);
@@ -140,7 +140,7 @@ section{position:relative;scroll-margin-top:84px}
 .shot::after{ /* vignette + grain */
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    radial-gradient(100% 100% at 50% 40%, transparent 40%, rgba(0,0,0,.62) 100%),
+    radial-gradient(100% 100% at 50% 40%, transparent 46%, rgba(0,0,0,.32) 100%),
     repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);
 }
 .shot.v2{background-image:radial-gradient(110% 80% at 20% 12%,rgba(242,107,33,.22),transparent 55%),linear-gradient(200deg,#1B2E1C 0%,#0A130C 52%,#040705 100%)}
@@ -229,8 +229,8 @@ body.slots .slot-tag{display:block}
 .hero .veil{
   position:absolute;inset:0;z-index:2;
   background:
-    linear-gradient(90deg,rgba(4,8,5,.93) 0%,rgba(4,8,5,.72) 42%,rgba(4,8,5,.30) 78%,rgba(4,8,5,.55) 100%),
-    linear-gradient(180deg,rgba(4,8,5,.86) 0%,transparent 34%,transparent 52%,rgba(4,8,5,.90) 100%);
+    linear-gradient(90deg,rgba(4,8,5,.88) 0%,rgba(4,8,5,.60) 42%,rgba(4,8,5,.12) 78%,rgba(4,8,5,.34) 100%),
+    linear-gradient(180deg,rgba(4,8,5,.64) 0%,transparent 30%,transparent 50%,rgba(4,8,5,.80) 100%);
 }
 .hero .wrap{position:relative;z-index:3;padding-top:170px;padding-bottom:clamp(56px,7vw,96px);width:100%}
 .hero h1{margin-bottom:26px}
@@ -298,7 +298,7 @@ body.slots .slot-tag{display:block}
 .card{position:relative;background:var(--black-green);min-height:460px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
 .card .shot{position:absolute;inset:0;transition:transform .5s ease}
 .card:hover .shot{transform:scale(1.045)}
-.card .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(4,8,5,.28) 0%,rgba(4,8,5,.72) 52%,rgba(4,8,5,.96) 100%)}
+.card .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(4,8,5,.05) 0%,rgba(4,8,5,.30) 40%,rgba(4,8,5,.80) 72%,rgba(4,8,5,.94) 100%)}
 .card .in{position:relative;z-index:3;padding:clamp(24px,2.6vw,34px)}
 .card h3{max-width:20ch}
 .card .ico{width:40px;height:40px;stroke:var(--orange);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-bottom:16px}
@@ -317,7 +317,7 @@ body.slots .slot-tag{display:block}
 .detail img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
 .detail figure:hover img{transform:scale(1.05)}
 .detail figcaption{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:16px 18px;
-  background:linear-gradient(180deg,transparent,rgba(4,8,5,.92));
+  background:linear-gradient(180deg,rgba(4,8,5,0) 0%,rgba(4,8,5,.72) 38%,rgba(4,8,5,.97) 100%);
   font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--white)}
 @media (max-width:820px){.detail{grid-template-columns:repeat(2,1fr)}}
 
@@ -340,8 +340,8 @@ body.slots .slot-tag{display:block}
 .customer{position:relative;overflow:hidden;min-height:min(62vh,560px);display:flex;align-items:flex-end}
 .customer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
 .customer .veil{position:absolute;inset:0;z-index:1;
-  background:linear-gradient(90deg,rgba(4,8,5,.92) 0%,rgba(4,8,5,.66) 46%,rgba(4,8,5,.24) 100%),
-             linear-gradient(180deg,rgba(4,8,5,.55) 0%,transparent 40%,rgba(4,8,5,.88) 100%)}
+  background:linear-gradient(90deg,rgba(4,8,5,.88) 0%,rgba(4,8,5,.52) 46%,rgba(4,8,5,.10) 100%),
+             linear-gradient(180deg,rgba(4,8,5,.34) 0%,transparent 38%,rgba(4,8,5,.74) 100%)}
 .customer .wrap{position:relative;z-index:2;padding-block:clamp(52px,6vw,86px);width:100%}
 .customer blockquote{margin:0;max-width:44ch}
 .customer blockquote p{font-family:var(--head);font-size:clamp(22px,3vw,40px);line-height:1.14;
@@ -353,7 +353,7 @@ body.slots .slot-tag{display:block}
 .mbreak{display:none;position:relative;height:58vw;max-height:420px;overflow:hidden}
 .mbreak img{width:100%;height:100%;object-fit:cover;display:block}
 .mbreak::after{content:"";position:absolute;inset:0;
-  background:radial-gradient(120% 90% at 50% 40%,transparent 30%,rgba(4,8,5,.55) 100%)}
+  background:radial-gradient(120% 90% at 50% 40%,transparent 40%,rgba(4,8,5,.30) 100%)}
 @media (max-width:760px){.mbreak{display:block}}
 
 /* ---------- 5. WHITE FEATURED PROJECTS ---------- */
@@ -361,7 +361,7 @@ body.slots .slot-tag{display:block}
 .proj{position:relative;aspect-ratio:16/11;overflow:hidden;background:#0A130C}
 .proj .shot{position:absolute;inset:0;transition:transform .5s ease}
 .proj:hover .shot{transform:scale(1.05)}
-.proj .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 38%,rgba(4,8,5,.88) 100%)}
+.proj .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 40%,rgba(4,8,5,.30) 58%,rgba(4,8,5,.80) 78%,rgba(4,8,5,.96) 100%)}
 .proj .meta{position:absolute;z-index:3;left:0;bottom:0;padding:22px 24px}
 .proj .meta strong{display:block;font-family:var(--head);font-size:clamp(21px,2.2vw,28px);text-transform:uppercase;line-height:1.05;color:var(--white)}
 .proj .meta span{display:block;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
@@ -370,7 +370,7 @@ body.slots .slot-tag{display:block}
 /* ---------- 6. DARK COMMERCIAL ---------- */
 .commercial{position:relative;overflow:hidden;background:var(--near-black)}
 .commercial > .shot{position:absolute;inset:0}
-.commercial .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(100deg,rgba(4,8,5,.96) 0%,rgba(4,8,5,.88) 44%,rgba(4,8,5,.52) 100%)}
+.commercial .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(100deg,rgba(4,8,5,.92) 0%,rgba(4,8,5,.74) 44%,rgba(4,8,5,.26) 100%)}
 .commercial .wrap{position:relative;z-index:3}
 .commercial .inner{max-width:660px}
 .commercial h2{margin-bottom:24px}
@@ -503,7 +503,7 @@ body.slots .tbd::after{
 
 <!-- ============ HEADER : minimal navigation ============ -->
 <a class="skip" href="#main">Skip to content</a>
-<div class="staging-bar" role="status">Preview build &mdash; some images are still placeholder illustrations, not real project photos. Figures not yet verified</div>
+<div class="staging-bar" role="status">Preview build &mdash; figures not yet verified</div>
 <header class="header" id="header">
   <div class="wrap">
     <a href="#top" class="logo"><svg class="mark" viewBox="150 14 500 214" aria-hidden="true"><rect x="496" y="44" width="44" height="62" class="body"/><path class="body" d="M400 20 L644 132 L588 132 L588 222 L212 222 L212 132 L156 132 Z"/><path class="leaf-b" d="M399 212 C352 190 328 140 344 100 C388 118 410 168 399 212 Z"/><path class="leaf-a" d="M401 212 C448 190 472 140 456 100 C412 118 390 168 401 212 Z"/></svg><span class="wordmark"><b>SPECIAL <i>GREEN</i> LLC</b><em>Lawns &middot; Landscaping &middot; Irrigation</em></span></a>
@@ -630,7 +630,7 @@ body.slots .tbd::after{
       </article>
 
       <article class="card">
-        <div class="shot v4"><img src="assets/images/service-irrigation.svg" alt="Irrigation sprinkler heads running across a lawn in golden afternoon light" width="1600" height="1200" decoding="async" loading="lazy"/><div class="slot-tag">Irrigation: sprinkler heads running at golden hour, water catching the light against dark turf.</div></div>
+        <div class="shot v4"><picture data-slot="service-irrigation"><source srcset="assets/images/service-irrigation.webp" type="image/webp"/><img src="assets/images/service-irrigation.jpg" alt="PVC pipe and an open trench on a Special Green job site" width="1600" height="1200" decoding="async" loading="lazy"/></picture><div class="slot-tag">Irrigation: sprinkler heads running at golden hour, water catching the light against dark turf.</div></div>
         <div class="veil"></div>
         <div class="in">
           <svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28c-3.6 0-6.5-2.8-6.5-6.3C9.5 17 16 4 16 4s6.5 13 6.5 17.7c0 3.5-2.9 6.3-6.5 6.3Z"/><path d="M16 22a2.6 2.6 0 0 1-2.6-2.6"/></svg>
@@ -645,8 +645,8 @@ body.slots .tbd::after{
     <div class="detail">
       <figure><picture data-slot="detail-edging"><img src="assets/images/detail-edging.jpg" alt="A mulched bed edged clean against the lawn and walkway" width="1200" height="1200" decoding="async" loading="lazy"/></picture><figcaption>Edging</figcaption></figure>
       <figure><picture data-slot="detail-trimmer"><source srcset="assets/images/detail-trimmer.webp" type="image/webp"/><img src="assets/images/detail-trimmer.jpg" alt="Shrubs trimmed to shape along a maintained lawn" width="1200" height="1200" decoding="async" loading="lazy"/></picture><figcaption>Trimming</figcaption></figure>
-      <figure><img src="assets/images/detail-blower.svg" alt="A backpack blower clearing grass clippings from a driveway" width="1200" height="1200" decoding="async" loading="lazy"/><figcaption>Blowing</figcaption></figure>
-      <figure><img src="assets/images/detail-irrigation-valve.svg" alt="A technician’s hands working on an irrigation valve box with tools laid out" width="1200" height="1200" decoding="async" loading="lazy"/><figcaption>Irrigation Repair</figcaption></figure>
+      <figure><picture data-slot="detail-blower"><img src="assets/images/detail-blower.jpg" alt="A finished front bed in close-up, edged against the lawn" width="1200" height="1200" decoding="async" loading="lazy"/></picture><figcaption>Bed Design</figcaption></figure>
+      <figure><picture data-slot="detail-irrigation-valve"><source srcset="assets/images/detail-irrigation-valve.webp" type="image/webp"/><img src="assets/images/detail-irrigation-valve.jpg" alt="A finished drain line, gravel-topped along the length of the trench" width="1200" height="1200" decoding="async" loading="lazy"/></picture><figcaption>Drainage</figcaption></figure>
     </div>
   </div>
 </section>
@@ -670,8 +670,8 @@ body.slots .tbd::after{
         <div class="meta"><span>Outdoor Living</span><strong>Poolside Planters</strong></div></a>
       <a class="proj" href="#work"><div class="shot v2"><picture data-slot="project-front-yard"><img src="assets/images/project-front-yard.jpg" alt="A completed front yard installation with sharp bed lines and new planting" width="1600" height="1100" decoding="async" loading="lazy"/></picture><div class="slot-tag">Front yard transformation, after shot. Straight-on, sharp bed lines.</div></div><div class="veil"></div>
         <div class="meta"><span>Landscaping</span><strong>Full Front Yard Install</strong></div></a>
-      <a class="proj" href="#work"><div class="shot v4"><img src="assets/images/project-irrigation.svg" alt="An irrigation zone running across a large residential lawn" width="1600" height="1100" decoding="async" loading="lazy"/><div class="slot-tag">Irrigation zone running across a large lawn, wide.</div></div><div class="veil"></div>
-        <div class="meta"><span>Irrigation</span><strong>System Install &amp; Repair</strong></div></a>
+      <a class="proj" href="#work"><div class="shot v4"><picture data-slot="project-irrigation"><source srcset="assets/images/project-irrigation.webp" type="image/webp"/><img src="assets/images/project-irrigation.jpg" alt="A seasonal colour bed in full flower beside a client's drive" width="1600" height="1100" decoding="async" loading="lazy"/></picture><div class="slot-tag">Irrigation zone running across a large lawn, wide.</div></div><div class="veil"></div>
+        <div class="meta"><span>Landscaping</span><strong>Seasonal Color Install</strong></div></a>
       <a class="proj" href="#work"><div class="shot v6"><picture data-slot="project-office-park"><source srcset="assets/images/project-office-park.webp" type="image/webp"/><img src="assets/images/project-office-park.jpg" alt="A finished entrance bed and lawn at a condominium property" width="1600" height="1100" decoding="async" loading="lazy"/></picture><div class="slot-tag">Commercial property grounds: office park or retail center, clean turf and beds.</div></div><div class="veil"></div>
         <div class="meta"><span>Commercial</span><strong>Commercial Garden</strong></div></a>
     </div>
