@@ -1,0 +1,38 @@
+SPECIAL GREEN - HOW TO GET THESE FILES ONTO GITHUB
+==================================================
+
+No terminal needed. About two minutes.
+
+1. Unzip this file somewhere easy to find, like your Desktop.
+   You should end up with a folder containing:
+       index.html
+       README.md
+       assets\
+       docs\
+       tools\
+
+2. In your browser go to:
+       https://github.com/securenation/specialgreen
+
+3. Click "Add file" (top right of the file list), then "Upload files".
+
+4. Open the unzipped folder in File Explorer.
+   Select ALL of it: index.html, README.md, and the assets, docs and tools
+   FOLDERS. Drag the whole selection onto the GitHub upload box.
+
+   Dragging folders is fine. GitHub keeps the folder structure, which matters:
+   the images have to land in assets\images\ and not loose at the top.
+
+5. Wait for it to finish listing all 36 files. Under "Commit changes", put:
+
+       Build the imagery the site was missing
+
+6. Leave "Commit directly to the main branch" selected. Click "Commit changes".
+
+That is it. The site rebuilds itself in about a minute.
+
+Check it here:
+    https://securenation.github.io/specialgreen/
+
+If GitHub asks about replacing existing files, say yes. index.html and the two
+README files are meant to be overwritten.
