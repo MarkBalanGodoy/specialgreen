@@ -3,8 +3,16 @@
 The homepage is already wired to every filename below. Drop the files in this folder with
 these exact names and they appear on the site. No code changes.
 
-Until a file exists, that slot shows a dark cinematic placeholder, so the page never looks
-broken while you are waiting on photography.
+Until a file exists, that slot shows a placeholder illustration from
+`tools/make-placeholder-art.py`, so the page never looks broken while you are waiting on
+photography.
+
+**The placeholders are drawings, not photographs, and they do not satisfy anything below.**
+They exist so the layout can be reviewed. They are deliberately graphic rather than
+photorealistic so that nobody mistakes one for a record of a job the company did. Every one
+of them gets replaced by a real photograph before launch, and the staging banner says so
+until that happens. Regenerate them with `python3 tools/make-placeholder-art.py`; delete
+`tools/` and the generated files once the real photography is in.
 
 ## What these photos must be
 
