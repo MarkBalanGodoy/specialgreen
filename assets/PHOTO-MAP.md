@@ -69,7 +69,61 @@ what is actually in frame — but a better photograph exists to be taken:
 - **`customer-crew-leader`** wants a homeowner talking with a crew leader. What is there is a
   finished bed.
 
-Nothing in the set shows a blower, a sprinkler head or a valve box. The detail strip and the
+The emailed set showed no blower, sprinkler head or valve box, so the detail strip and the
 irrigation project were relabelled to match their photographs rather than the reverse:
 `Blowing` became `Bed Design`, `Irrigation Repair` became `Drainage`, and the irrigation
-project became `Seasonal Color Install`. Change them back when the photographs exist.
+project became `Seasonal Color Install`.
+
+The Facebook set then supplied a real backpack blower, so `Blowing` has its name back.
+`Drainage` and `Seasonal Color Install` still stand, because nothing yet shows a sprinkler
+head or a valve box.
+
+
+## Second pass: photographs from the Facebook page
+
+Jon sent the company's Facebook photo library as a set of zips (213 unique images
+after de-duplication). Fourteen slots moved to those photographs, chosen for the
+brightest light, the highest resolution available, and crew at work wherever the
+slot could carry it. Thirty-five of the Facebook images are 2048px wide, which
+beats the 1536px ceiling of the emailed set, so most full-bleed slots got sharper
+as well as brighter.
+
+These files are not in the repo either. The filenames below are Facebook's own
+CDN names, as downloaded.
+
+| Slot | Source | File |
+| --- | --- | --- |
+| `hero-outdoor-living` | Facebook set | `668743495_935107805936540_6745819076879702438_n.jpg` |
+| `service-lawn-care` | Facebook set | `471147360_570161635764494_8367175150090850378_n.jpg` |
+| `service-landscaping` | Facebook set | `496149419_684334921013831_5177710913840970155_n.jpg` |
+| `crew-group` | Facebook set | `500552108_18006541412765338_6936249543574964612_n.jpg` |
+| `crew-truck-load` | Facebook set | `441921028_17960254721765338_1887255107908847863_n.jpg` |
+| `detail-blower` | Facebook set | `500368396_18006541343765338_601788723376770463_n.jpg` |
+| `detail-edging` | Facebook set | `471546766_576359261811398_2915042605784808024_n.jpg` |
+| `detail-trimmer` | Facebook set | `668222321_935107795936541_564298851195051515_n.jpg` |
+| `project-patio-landscape` | Facebook set | `670077460_18045474278765338_3938220201719971602_n.jpg` |
+| `project-front-yard` | Facebook set | `499770551_684334934347163_8119803631497757145_n.jpg` |
+| `project-irrigation` | Facebook set | `670906099_18045473963765338_9020040632630491522_n.jpg` |
+| `commercial-crew-trucks` | Facebook set | `699891159_964077773039543_1574845214990911035_n.jpg` |
+| `project-office-park` | Facebook set | `699906897_964077683039552_3417082931043932461_n.jpg` |
+| `customer-crew-leader` | Facebook set | `470883895_570161599097831_3779435024549193296_n.jpg` |
+
+Kept from the emailed set, because nothing in the Facebook library beat them:
+`crew-portrait` (crew member cutting drain pipe), `service-irrigation`,
+`detail-irrigation-valve`, `cta-sunset`, both mobile breaks, and all six
+before/after frames.
+
+### One photograph deliberately not used
+
+A strong shot of a crew member in an orange shirt carrying a roll of sod was the
+obvious pick for a crew slot, but the back of the shirt reads "BEST QUAL…",
+which is not Special Green branding. It may well be their own shirt, but
+captioning someone as a Special Green crew member on the strength of a guess is
+not worth it. Confirm the shirt and it goes straight in.
+
+### Still open
+
+Two photographs Jon is getting: sprinklers running, and the team standing in
+front of the equipment with a finished landscape behind them. The first fixes
+the Irrigation service card, which still carries drainage pipe. The second is
+the crew group shot the About section has wanted from the start.
