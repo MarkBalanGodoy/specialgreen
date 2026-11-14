@@ -39,9 +39,12 @@ Cloudflare's proxy sits in front of the site and prevents GitHub from issuing th
 certificate. The site will appear broken with no useful error. Once the certificate has been
 issued you can switch the proxy back on if you want Cloudflare's caching.
 
-**SSL/TLS mode must be Full.** Left sidebar → **SSL/TLS** → **Overview** → select **Full**.
-If it is set to **Flexible**, visitors get an endless redirect loop. This is the single most
-common Cloudflare and GitHub Pages failure and it looks nothing like a DNS problem.
+**SSL/TLS mode must be Full — but only once the proxy is on.** Left sidebar → **SSL/TLS** →
+**Overview** → select **Full**. With the proxy off (grey cloud) Cloudflare is not in the
+request path at all, so this setting does nothing and cannot break anything. It matters the
+moment any record is switched to orange: on **Flexible**, visitors get an endless redirect
+loop that looks nothing like a DNS problem. Set it to Full now anyway so it is already right
+if the proxy is ever turned on.
 
 ### Then, in GitHub
 
@@ -52,6 +55,25 @@ common Cloudflare and GitHub Pages failure and it looks nothing like a DNS probl
 
 The HTTPS box stays greyed out until the certificate is issued. That is usually a few
 minutes and occasionally an hour. It is not stuck; it is waiting on DNS to propagate.
+
+### Checking it yourself
+
+This cannot be verified from the Claude session: that container resolves only an allowlist
+of hosts, so a lookup there fails whether or not the records exist. Check from your own
+machine instead.
+
+Command Prompt:
+
+```
+nslookup specialgreenbr.com
+```
+
+Expect the four addresses above. Cloudflare is authoritative for the domain, so records
+usually appear within seconds of saving, not hours. If nslookup still shows nothing after a
+few minutes, the records did not save or something is still sitting on `@`.
+
+Then open **https://specialgreenbr.com**. A certificate warning means the cert has not
+issued yet; wait rather than changing anything.
 
 ---
 
